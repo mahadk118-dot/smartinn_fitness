@@ -1,0 +1,14 @@
+const $=s=>document.querySelector(s),nav=$('#nav'),bg=$('#bg'),mm=$('#mm');
+addEventListener('scroll',()=>nav.classList.toggle('s',scrollY>50),{passive:true});
+const tog=o=>{bg.classList.toggle('x',o);mm.classList.toggle('o',o);document.body.style.overflow=o?'hidden':''};
+bg.onclick=()=>tog(!mm.classList.contains('o'));mm.querySelectorAll('a').forEach(a=>a.onclick=()=>tog(false));
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+const sl=[...document.querySelectorAll('.sl')],ds=[...document.querySelectorAll('#dots button')];let i=0,t;
+const go=n=>{i=n;sl.forEach((s,k)=>s.classList.toggle('a',k==n));ds.forEach((d,k)=>d.classList.toggle('a',k==n))};
+ds.forEach((d,k)=>d.onclick=()=>{go(k);clearInterval(t)});t=setInterval(()=>go((i+1)%sl.length),6000);
+const lb=$('#lb'),li=lb.querySelector('img');
+document.querySelectorAll('.gi:not(.ph2)').forEach(g=>g.onclick=()=>{const m=g.querySelector('img');li.src=m.src;li.alt=m.alt;lb.classList.add('o')});
+lb.onclick=()=>lb.classList.remove('o');addEventListener('keydown',e=>e.key=='Escape'&&lb.classList.remove('o'));
+const cur=$('#cur');if(matchMedia('(pointer:fine)').matches)addEventListener('pointermove',e=>{cur.style.opacity=1;cur.style.transform=`translate(${e.clientX}px,${e.clientY}px)`},{passive:true});
+$('#f').onsubmit=e=>{e.preventDefault();const d=new FormData(e.target),m=`Hi Smartinn Fitness, I'm ${d.get('n')} (${d.get('p')}${d.get('e')?', '+d.get('e'):''}). ${d.get('m')||'I\'d like membership info.'}`;window.open('https://wa.me/923347779064?text='+encodeURIComponent(m),'_blank')};
